@@ -50,6 +50,9 @@ function StudentDashboard({ logout, isAuthenticated }) {
         });
         setShowLectureDetails(true);
     };
+    const handleCloseDetailsClick = () => {
+        setShowLectureDetails(false);
+    }
 
     const handleLogout = () => {
         logout();
@@ -116,6 +119,7 @@ function StudentDashboard({ logout, isAuthenticated }) {
                             courseId={courseData.id}
                             courseName={courseData.name}
                             studentId={studentId}
+                            onCloseButtonClick={handleCloseDetailsClick}
                         />
                     )}
 

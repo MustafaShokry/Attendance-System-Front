@@ -1,8 +1,8 @@
 
 import axios from 'axios';
-
+import { base_url } from './settings';
 const api = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: base_url,
 });
 
 export const studentLogin = async (email, na_id) => {
@@ -21,7 +21,7 @@ export const studentLogin = async (email, na_id) => {
 
 export const instructorLogin = async (email, na_id) => {
   try {
-    const response = await api.get(`/instructor/${email}/${na_id}`);
+    const response = await api.get(`/instructor/login/${email}/${na_id}`);
 
     if (response.status === 200) {
       return response.data.instructorId;

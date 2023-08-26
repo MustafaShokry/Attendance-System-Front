@@ -10,9 +10,9 @@ const InstructorLogin = (props) => {
   const handleLogin = async () => {
     //todo add validation
     try {
-      const user = await props.login(email, password);
-      if (user) {
-        navigate('/instructor-dashboard');
+      const instructorId = await props.login(email, password);
+      if (instructorId) {
+        navigate(`/instructor-dashboard/${instructorId}`);
       }
     } catch (error) {
       console.error('Login failed:', error);

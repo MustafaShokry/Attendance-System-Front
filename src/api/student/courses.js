@@ -1,7 +1,7 @@
 import axios from 'axios';
-
+import { base_url } from '../settings';
 const api = axios.create({
-  baseURL: 'http://localhost:3000', // Replace with your actual API base URL
+  baseURL: base_url, // Replace with your actual API base URL
 });
 
 export const fetchCourses = async (studentId) => {

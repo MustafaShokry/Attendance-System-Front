@@ -67,7 +67,7 @@ function App() {
           <Route path="/admin-login" element={<AdminLogin login={handleAdminLogin} />} />
 
           <Route path="/student-dashboard/:studentId" element={<StudentDashboard logout={logout} isAuthenticated={isAuthenticated} />} />
-          <Route path="/instructor-dashboard" element={<InstructorDashboard logout={logout} isAuthenticated={isAuthenticated}/>} />
+          <Route path="/instructor-dashboard/:instructorId" element={<InstructorDashboard logout={logout} isAuthenticated={isAuthenticated}/>} />
           <Route path="/admin-dashboard" element={<AdminDashboard logout={logout} isAuthenticated={isAuthenticated}/>} />
 
           <Route path="*" element={<NotFound />} />

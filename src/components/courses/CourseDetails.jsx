@@ -14,7 +14,7 @@ function CourseDetails({ course, onClick }) {
       </div>
       <div className="flex items-center mt-1">
         <p className="text-gray-600">Absent days:</p>
-        <span className="ml-2 text-red-500">{course.total_absent}</span>
+        <span className={`ml-2 ${course.total_absent == 0 ? 'text-green-500' : 'text-red-500'}`}>{course.total_absent}</span>
       </div>
       <div className="flex items-center mt-1">
         <p className="text-gray-600">Status:</p>

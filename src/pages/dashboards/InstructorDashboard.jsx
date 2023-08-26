@@ -1,67 +1,145 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom'; // Import Navigate for routing
+import { useParams } from 'react-router-dom'; // Import useParams
+import Navbar from '../../components/Navbar';
+import LoadingScreen from '../../components/LoadingScreen';
 
-function InstructorDashboard(props) {
-  // Sample instructor data (replace with actual data from your backend)
-  const instructorData = {
-    name: 'Jane Smith',
-    email: 'jane@example.com',
-    department: 'Computer Science',
-    coursesTaught: [
-      {
-        id: 1,
-        name: 'Course 1',
-        description: 'Course description 1',
-      },
-      {
-        id: 2,
-        name: 'Course 2',
-        description: 'Course description 2',
-      },
-      // Add more courses as needed
-    ],
+import InstructorCourseDetails from '../../components/courses/InstructorCourseDetails';
+import AttendanceTable from '../../components/courses/AttendanceTable';
+
+
+import { fetchAttendanceData, updateAttendanceData } from '../../api/instructor/attendanceData.js';
+import { fetchData } from '../../api/instructor/data.js';
+import { fetchCourses } from '../../api/instructor/courses.js';
+import {downloadAttendanceData} from '../../api/instructor/downloadAttendance.js';
+
+function StudentDashboard({ logout, isAuthenticated }) {
+  const { instructorId } = useParams(); // Get studentId from the URL params
+  const [instructorData, setInstructorData] = useState(null);
+  const [courses, setCourses] = useState([]);
+  const [showAttendanceData, setshowAttendanceData] = useState(false);
+  const [detailsCourseId, setdetailsCourseId] = useState(null);
+  const [attendanceData, setAttendanceData] = useState([]);
+
+
+  useEffect(() => {
+    const fetchInstructorCourses = async () => {
+      try {
+        const data = await fetchCourses(instructorId);
+        setCourses(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const fetchInstructorData = async () => {
+      try {
+        const data = await fetchData(instructorId);
+        setInstructorData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchInstructorData();
+    fetchInstructorCourses();
+  }, []);
+
+
+  const handleViewDetailsClick = async (courseId) => {
+    try {
+      const data = await fetchAttendanceData(courseId);
+      setAttendanceData(data);
+      setdetailsCourseId(courseId);
+    } catch (error) {
+      console.error(error);
+    }
+    setshowAttendanceData(true);
   };
 
-  const handleCourseClick = (course) => {
-    // Handle course click, e.g., navigate to course details page
-  };
+  const handleDownloadClick = async (courseId) => {
+    await downloadAttendanceData(courseId);
+  }
+
+  const handleCloseDetailsClick = () => {
+    setshowAttendanceData(false);
+  }
+
+  const handleSaveChangesClick = async (courseId, attendanceData) => {
+    console.log(attendanceData);
+    console.log(courseId);
+    await updateAttendanceData(courseId, attendanceData);
+  }
 
   const handleLogout = () => {
-    
-    props.logout();
+    logout();
   };
 
-  // Check if the user is authenticated
-  if (!props.isAuthenticated) {
-    // Redirect unauthenticated users to the login page
+  if (!isAuthenticated) {
     return <Navigate to="/" />;
   }
 
+  // Display loading indicator while waiting for data
+  if (instructorData === null || courses.length === 0) {
+    return <LoadingScreen />;
+  }
+
   return (
-    <div className="bg-gray-200 min-h-screen">
+    <div className="bg-gray-200 h-[100%]">
+      <Navbar />
       <div className="max-w-5xl mx-auto py-8">
         <div className="bg-white rounded-lg shadow-lg p-6">
-          <h1 className="text-3xl font-semibold mb-4">Instructor Profile</h1>
-          <div className="mb-4">
-            <p><strong>Name:</strong> {instructorData.name}</p>
-            <p><strong>Email:</strong> {instructorData.email}</p>
-            <p><strong>Department:</strong> {instructorData.department}</p>
+          <h1 className="text-3xl font-semibold mb-4">Instructor dashboard</h1>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-gray-700"><strong>Name:</strong></p>
+              <p className="text-gray-900">{instructorData.instructorName}</p>
+            </div>
+            <div>
+              <p className="text-gray-700"><strong>Email:</strong></p>
+              <p className="text-gray-900">{instructorData.instructorEmail}</p>
+            </div>
+            <div>
+              <p className="text-gray-700"><strong>Position:</strong></p>
+              <p className="text-gray-900">{instructorData.instructorPosition}</p>
+            </div>
+            <div>
+              <p className="text-gray-700"><strong>Total courses taught:</strong></p>
+              <p className="text-gray-900">{instructorData.numberOfCoursesTaught}</p>
+            </div>
+            <div>
+              <p className="text-gray-700"><strong>Total suspended students:</strong></p>
+              <span className={`ml-2 ${instructorData.numberOfSuspendedStudents == 0 ? 'text-green-500' : 'text-red-500'}`}>{instructorData.numberOfSuspendedStudents}</span>
+            </div>
           </div>
-          <h2 className="text-xl font-semibold mb-4">Courses Taught</h2>
-          <ul>
-            {instructorData.coursesTaught.map((course) => (
-              <li key={course.id} className="mb-2">
-                <button
-                  className="text-blue-500 hover:underline"
-                  onClick={() => handleCourseClick(course)}
-                >
-                  {course.name}
-                </button>
-              </li>
+
+          <h2 className="text-xl font-semibold mt-8 mb-4">Taught Courses</h2>
+          <div className="grid md:grid-cols-3 lg:grid-cols-3 gap-4 max-h-80 overflow-y-auto py-3 px-4">
+            {courses.map((course) => (
+              <div key={course.co_id}>
+                <InstructorCourseDetails
+                  course={course}
+                  onDetailsClick={handleViewDetailsClick}
+                  onDownloadClick={handleDownloadClick}
+
+                />
+              </div>
             ))}
-          </ul>
+          </div>
+
+          {showAttendanceData && (
+            <AttendanceTable
+              attendanceData={attendanceData}
+              courseName={'Course Name'}
+              onCloseButtonClick={handleCloseDetailsClick}
+              onSaveChangesClick={handleSaveChangesClick}
+              courseId={detailsCourseId}
+
+            />
+          )}
+
           <button
-            className="mt-6 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg"
+            className="mt-6 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg"
             onClick={handleLogout}
           >
             Logout
@@ -72,4 +150,4 @@ function InstructorDashboard(props) {
   );
 }
 
-export default InstructorDashboard;
+export default StudentDashboard;

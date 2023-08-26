@@ -2,7 +2,7 @@ import  { useEffect, useState } from 'react';
 import { fetchLectureDetails } from '../../api/student/attendanceDetails.js';
 
 
-function LectureDetails({ courseId, courseName, studentId }) {
+function LectureDetails({ courseId, courseName, studentId, onCloseButtonClick }) {
   const [lectureData, setLectureData] = useState([]);
 
   useEffect(() => {
@@ -24,7 +24,15 @@ function LectureDetails({ courseId, courseName, studentId }) {
   return (
     <div className="max-w-5xl mx-auto py-8">
       <div className="bg-white rounded-lg shadow-lg p-6">
-        <h1 className="text-3xl font-semibold mb-4">{courseName} Lecture Details</h1>
+      <div className="flex justify-between items-center mb-4">
+          <h1 className="text-3xl font-semibold">{courseName} Lecture Details</h1>
+          <button
+            className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg"
+            onClick={onCloseButtonClick}
+          >
+            Close
+          </button>
+        </div>
         <table className="w-full border-collapse border border-gray-300">
           <thead>
             <tr>
