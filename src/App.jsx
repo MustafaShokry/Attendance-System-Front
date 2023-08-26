@@ -9,6 +9,7 @@ import InstructorDashboard from './pages/dashboards/InstructorDashboard';
 import AdminDashboard from './pages/dashboards/AdminDashboard';
 import NotFound from './pages/NotFound';
 import { studentLogin, instructorLogin, adminLogin } from './api/login.js'; // Import the API functions
+import InstructorWarnings from './pages/warnings/InstructorWarnings';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -69,6 +70,8 @@ function App() {
           <Route path="/student-dashboard/:studentId" element={<StudentDashboard logout={logout} isAuthenticated={isAuthenticated} />} />
           <Route path="/instructor-dashboard/:instructorId" element={<InstructorDashboard logout={logout} isAuthenticated={isAuthenticated}/>} />
           <Route path="/admin-dashboard" element={<AdminDashboard logout={logout} isAuthenticated={isAuthenticated}/>} />
+
+          <Route path="/instructor-Warnings/:instructorId" element={<InstructorWarnings logout={logout} isAuthenticated={isAuthenticated}/>} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,11 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+const navigationItems = [
+  { root: '/', label: 'Home' },
+  { root: '/about', label: 'About' },
+  { root: '/services', label: 'Services' },
+  { root: '/contact', label: 'Contact' },
+  // Add more navigation items as needed
+];
 
 function NotFound() {
   const navigate = useNavigate();
   return (
     <div className='h-screen overflow-hidden'>
-      <Navbar />
+      <Navbar navItems={navigationItems} />
       <main className="grid min-h-screen place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
         <div className="text-center mt-[-15%]">
           <p className="text-base font-semibold text-indigo-600">404</p>

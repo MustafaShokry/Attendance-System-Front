@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom'; // Import Navigate for routing
 import { useParams } from 'react-router-dom'; // Import useParams
+
 import Navbar from '../../components/Navbar';
 import LoadingScreen from '../../components/LoadingScreen';
-
 import InstructorCourseDetails from '../../components/courses/InstructorCourseDetails';
 import AttendanceTable from '../../components/courses/AttendanceTable';
-
 
 import { fetchAttendanceData, updateAttendanceData } from '../../api/instructor/attendanceData.js';
 import { fetchData } from '../../api/instructor/data.js';
 import { fetchCourses } from '../../api/instructor/courses.js';
 import {downloadAttendanceData} from '../../api/instructor/downloadAttendance.js';
+
+
+
 
 function StudentDashboard({ logout, isAuthenticated }) {
   const { instructorId } = useParams(); // Get studentId from the URL params
@@ -20,7 +22,13 @@ function StudentDashboard({ logout, isAuthenticated }) {
   const [showAttendanceData, setshowAttendanceData] = useState(false);
   const [detailsCourseId, setdetailsCourseId] = useState(null);
   const [attendanceData, setAttendanceData] = useState([]);
-
+  const navigationItems = [
+    { root: '/', label: 'Home' },
+    { root: `/instructor-dashboard/${instructorId}`, label: 'Dashboard' },
+    { root: `/instructor-Warnings/${instructorId}`, label: 'Warnings' },
+    { root: '/contact', label: 'Contact' },
+    // Add more navigation items as needed
+  ]; 
 
   useEffect(() => {
     const fetchInstructorCourses = async () => {
@@ -75,9 +83,9 @@ function StudentDashboard({ logout, isAuthenticated }) {
     logout();
   };
 
-  if (!isAuthenticated) {
-    return <Navigate to="/" />;
-  }
+  // if (!isAuthenticated) {
+  //   return <Navigate to="/" />;
+  // }
 
   // Display loading indicator while waiting for data
   if (instructorData === null || courses.length === 0) {
@@ -86,7 +94,7 @@ function StudentDashboard({ logout, isAuthenticated }) {
 
   return (
     <div className="bg-gray-200 h-[100%]">
-      <Navbar />
+      <Navbar navItems={navigationItems}/>
       <div className="max-w-5xl mx-auto py-8">
         <div className="bg-white rounded-lg shadow-lg p-6">
           <h1 className="text-3xl font-semibold mb-4">Instructor dashboard</h1>

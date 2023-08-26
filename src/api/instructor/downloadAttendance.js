@@ -2,13 +2,13 @@ import axios from 'axios';
 import { base_url } from '../settings';
 
 const api = axios.create({
-  baseURL: base_url, // Replace with your actual API base URL
+  baseURL: base_url, 
 });
 
 export const downloadAttendanceData = async (courseId) => {
   try {
     const response = await api.get(`/course/${courseId}/attendance/download`, {
-      responseType: 'blob', // Specify that the response type should be a binary blob
+      responseType: 'blob',
     });
 
     if (response.status === 200) {

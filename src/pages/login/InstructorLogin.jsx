@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
-
+const navigationItems = [
+  { root: '/', label: 'Home' },
+  { root: '/about', label: 'About' },
+  { root: '/services', label: 'Services' },
+  { root: '/contact', label: 'Contact' },
+  // Add more navigation items as needed
+]; 
 const InstructorLogin = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,7 +27,7 @@ const InstructorLogin = (props) => {
 
   return (
     <div className="bg-gray-100  h-screen overflow-hidden">
-      <Navbar />
+      <Navbar navItems={navigationItems} />
       <div className="flex h-screen justify-center items-center bg-gray-100">
         <div className="bg-white p-8 mt-[-220px] rounded shadow-md w-80">
           <h2 className="text-3xl font-semibold mb-4">Instructor Login</h2>

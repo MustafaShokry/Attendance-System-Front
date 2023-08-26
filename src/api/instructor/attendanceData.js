@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { base_url } from '../settings';
 const api = axios.create({
-  baseURL: base_url, // Replace with your actual API base URL
+  baseURL: base_url, 
 });
 
 export const fetchAttendanceData = async (courseId) => {
@@ -9,12 +9,12 @@ export const fetchAttendanceData = async (courseId) => {
     const response = await api.get(`/course/${courseId}/attendance`);
 
     if (response.status === 200) {
-      return response.data; // Assuming your API returns an array of lecture details
+      return response.data;
     } else {
-      throw new Error('Failed to fetch courses');
+      throw new Error('Failed to fetch attendance data');
     }
   } catch (error) {
-    throw new Error('Error during courses fetch');
+    throw new Error('Error during attendance data fetch');
   }
 };
 

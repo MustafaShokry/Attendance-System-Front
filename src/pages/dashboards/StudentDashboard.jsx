@@ -7,6 +7,13 @@ import { fetchCourses } from '../../api/student/courses.js';
 import Navbar from '../../components/Navbar';
 import LoadingScreen from '../../components/LoadingScreen';
 import LectureDetails from '../../components/courses/LectureDetails';
+const navigationItems = [
+    { root: '/', label: 'Home' },
+    { root: '/about', label: 'About' },
+    { root: '/services', label: 'Services' },
+    { root: '/contact', label: 'Contact' },
+    // Add more navigation items as needed
+  ]; 
 
 function StudentDashboard({ logout, isAuthenticated }) {
     const { studentId } = useParams(); // Get studentId from the URL params
@@ -14,7 +21,8 @@ function StudentDashboard({ logout, isAuthenticated }) {
     const [courses, setCourses] = useState([]);
     const [showLectureDetails, setShowLectureDetails] = useState(false);
     const [courseData, setCourseData] = useState({});
-
+    
+    
     useEffect(() => {
         const fetchStudentCourses = async () => {
             try {
@@ -66,10 +74,10 @@ function StudentDashboard({ logout, isAuthenticated }) {
     if (studentData === null || courses.length === 0) {
         return <LoadingScreen />;
     }
-
+    console.log(navigationItems);
     return (
         <div className="bg-gray-200 h-[100%]">
-            <Navbar />
+            <Navbar navItems={navigationItems}/>
             <div className="max-w-5xl mx-auto py-8">
                 <div className="bg-white rounded-lg shadow-lg p-6">
                     <h1 className="text-3xl font-semibold mb-4">Student dashboard</h1>
