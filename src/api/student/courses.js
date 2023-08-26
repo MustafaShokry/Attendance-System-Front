@@ -9,7 +9,7 @@ export const fetchCourses = async (studentId) => {
     const response = await api.get(`/student-summary/${studentId}`);
 
     if (response.status === 200) {
-      return response.data; // Assuming your API returns an array of lecture details
+      return response.data; 
     } else {
       throw new Error('Failed to fetch courses');
     }
@@ -17,3 +17,17 @@ export const fetchCourses = async (studentId) => {
     throw new Error('Error during courses fetch');
   }
 };
+
+export const fetchStudentCourses = async (studentId) => {
+  try {
+    const response = await api.get(`/student/${studentId}/courses`);
+
+    if (response.status === 200) {
+      return response.data; 
+    } else {
+      throw new Error('Failed to fetch courses');
+    }
+  } catch (error) {
+    throw new Error('Error during courses fetch');
+  }
+}

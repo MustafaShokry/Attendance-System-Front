@@ -10,7 +10,7 @@ import { fetchPendingWarnings, confirmWarning, fetchResolvedWarnings } from '../
 
 
 function InstructorWarnings({ logout, isAuthenticated }) {
-    const { instructorId } = useParams(); // Get studentId from the URL params
+    const { instructorId } = useParams(); 
     const [pendingWarnings, setPendingWarnings] = useState([]);
     const [resolvedWarnings, setResolvedWarnings] = useState([]);
     const [emptyPendingWarnings, setemptyPendingWarnings] = useState(true);
@@ -21,8 +21,8 @@ function InstructorWarnings({ logout, isAuthenticated }) {
         { root: '/', label: 'Home' },
         { root: `/instructor-dashboard/${instructorId}`, label: 'Dashboard' },
         { root: `/instructor-Warnings/${instructorId}`, label: 'Warnings' },
-        { root: '/contact', label: 'Contact' },
-        // Add more navigation items as needed
+        { root: `/instructor-reports/${instructorId}`, label: 'Reports' },
+        
     ];
 
     useEffect(() => {
@@ -79,7 +79,7 @@ function InstructorWarnings({ logout, isAuthenticated }) {
                     {emptyPendingWarnings && <div className="max-h-[400px] text-center mt-20">No pending warnings available ....</div>}
                     {!emptyPendingWarnings && <div className="max-h-[400px] overflow-y-auto">
                         {pendingWarnings.map((warning, index) => (
-                            <div key={index} className="bg-white rounded-lg shadow-lg p-6 mb-4">
+                            <div key={index} className="bg-white rounded-lg border shadow-lg p-6 mb-4 mt-2">
                                 <h3 className="text-xl font-semibold">Warning #{index + 1}</h3>
                                 <div className="grid grid-cols-4 gap-4 mt-3">
                                     <div>
@@ -113,7 +113,7 @@ function InstructorWarnings({ logout, isAuthenticated }) {
                                     <div className="col-span-4 mt-4 text-center">
                                         <button
                                             className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md mx-auto block"
-                                            onClick={() => handleConfirmWarning(index)} // Replace with your confirmation logic
+                                            onClick={() => handleConfirmWarning(index)} 
                                         >
                                             Confirm
                                         </button>
@@ -128,7 +128,7 @@ function InstructorWarnings({ logout, isAuthenticated }) {
                     {emptyResolvedWarnings && <div className="max-h-[400px] text-center">No warnings confirmed ....</div>}
                     {!emptyResolvedWarnings && <div className="max-h-[400px] overflow-y-auto">
                         {resolvedWarnings.map((warning, index) => (
-                            <div key={index} className="bg-white rounded-lg shadow-lg p-6 mb-4">
+                            <div key={index} className="bg-white border rounded-lg shadow-lg p-6 mb-4 mt-2">
                                 <h3 className="text-xl font-semibold">Warning #{index + 1}</h3>
                                 <div className="grid grid-cols-4 gap-4 mt-3">
                                     <div>

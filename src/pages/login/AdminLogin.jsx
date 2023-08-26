@@ -17,9 +17,9 @@ const AdminLogin = (props) => {
   const handleLogin = async () => {
     //todo add validation
     try {
-      const user = await props.login(username, password);
-      if (user) {
-        navigate('/admin-dashboard');
+      const adminId = await props.login(username, password);
+      if (adminId) {
+        navigate(`/admin-dashboard/${adminId}`);
       }
     } catch (error) {
       console.error('Login failed:', error);

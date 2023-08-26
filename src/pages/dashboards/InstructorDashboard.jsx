@@ -26,8 +26,8 @@ function StudentDashboard({ logout, isAuthenticated }) {
     { root: '/', label: 'Home' },
     { root: `/instructor-dashboard/${instructorId}`, label: 'Dashboard' },
     { root: `/instructor-Warnings/${instructorId}`, label: 'Warnings' },
-    { root: '/contact', label: 'Contact' },
-    // Add more navigation items as needed
+    { root: `/instructor-reports/${instructorId}`, label: 'Reports' },
+    
   ]; 
 
   useEffect(() => {

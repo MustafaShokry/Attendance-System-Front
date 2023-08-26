@@ -7,13 +7,7 @@ import { fetchCourses } from '../../api/student/courses.js';
 import Navbar from '../../components/Navbar';
 import LoadingScreen from '../../components/LoadingScreen';
 import LectureDetails from '../../components/courses/LectureDetails';
-const navigationItems = [
-    { root: '/', label: 'Home' },
-    { root: '/about', label: 'About' },
-    { root: '/services', label: 'Services' },
-    { root: '/contact', label: 'Contact' },
-    // Add more navigation items as needed
-  ]; 
+
 
 function StudentDashboard({ logout, isAuthenticated }) {
     const { studentId } = useParams(); // Get studentId from the URL params
@@ -21,7 +15,11 @@ function StudentDashboard({ logout, isAuthenticated }) {
     const [courses, setCourses] = useState([]);
     const [showLectureDetails, setShowLectureDetails] = useState(false);
     const [courseData, setCourseData] = useState({});
-    
+    const navigationItems = [
+        { root: '/', label: 'Home' },
+        { root: `/student-dashboard/${studentId}`, label: 'Dashboard' },
+        { root: `/student-report/${studentId}`, label: 'Report Illness' },
+      ]; 
     
     useEffect(() => {
         const fetchStudentCourses = async () => {

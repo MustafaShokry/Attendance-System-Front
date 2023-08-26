@@ -4,7 +4,7 @@ function CourseDetails({ course, onClick }) {
 
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition duration-300 ease-in-out text-center flex flex-col justify-center items-center">
+    <div className="bg-white rounded-lg border shadow-lg p-6 hover:shadow-xl transition duration-300 ease-in-out text-center flex flex-col justify-center items-center">
       <div className="h-16">
         <h2 className={`text-2xl font-semibold ${course.co_name.length < 27 ? 'py-6' :'' } `}>{course.co_name}</h2>
       </div>
