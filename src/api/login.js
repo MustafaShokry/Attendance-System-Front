@@ -7,7 +7,7 @@ const api = axios.create({
 
 export const studentLogin = async (email, na_id) => {
   try {
-    const response = await api.get(`/student/${email}/${na_id}`);
+    const response = await api.get(`/student/login/${email}/${na_id}`);
 
     if (response.status === 200) {
       return response.data.studentId;
