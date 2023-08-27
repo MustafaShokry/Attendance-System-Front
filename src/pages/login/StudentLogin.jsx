@@ -3,24 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 const navigationItems = [
   { root: '/', label: 'Home' },
-  { root: '/about', label: 'About' },
-  { root: '/services', label: 'Services' },
-  { root: '/contact', label: 'Contact' },
-  // Add more navigation items as needed
-]; 
+  { root: '/student-login', label: 'Student' },
+  { root: '/instructor-login', label: 'Instructor' },
+  { root: '/admin-login', label: 'Admin' },
+];
 const StudentLogin = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    //todo add validation
     try {
       const studentId = await props.login(email, password);
-      if (studentId) {
-        console.log('Student logged in with ID:', studentId);
-        navigate(`/student-dashboard/${studentId}`);
-      }
+      navigate(`/student-dashboard/${studentId}`);
     } catch (error) {
       console.error('Login failed:', error);
     }

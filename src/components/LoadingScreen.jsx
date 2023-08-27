@@ -1,13 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar';
-const navigationItems = [
-  { root: '/', label: 'Home' },
-  { root: '/about', label: 'About' },
-  { root: '/services', label: 'Services' },
-  { root: '/contact', label: 'Contact' },
-  // Add more navigation items as needed
-]; 
-function LoadingScreen() {
+function LoadingScreen({navigationItems}) {
   
   return (
     <div className="bg-gray-200 h-[100%]">

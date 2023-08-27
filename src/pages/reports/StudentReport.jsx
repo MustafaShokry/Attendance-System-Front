@@ -92,7 +92,7 @@ function IllnessReportForm() {
     }));
 
     if (courses.length === 0 && loading) {
-        return <LoadingScreen />;
+        return <LoadingScreen navigationItems={navigationItems}/>;
     }
 
     return (

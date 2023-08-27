@@ -10,7 +10,7 @@ import { fetchPendingWarnings, confirmWarning, fetchResolvedWarnings } from '../
 
 
 function InstructorWarnings({ logout, isAuthenticated }) {
-    const { instructorId } = useParams(); 
+    const { instructorId } = useParams();
     const [pendingWarnings, setPendingWarnings] = useState([]);
     const [resolvedWarnings, setResolvedWarnings] = useState([]);
     const [emptyPendingWarnings, setemptyPendingWarnings] = useState(true);
@@ -22,7 +22,7 @@ function InstructorWarnings({ logout, isAuthenticated }) {
         { root: `/instructor-dashboard/${instructorId}`, label: 'Dashboard' },
         { root: `/instructor-Warnings/${instructorId}`, label: 'Warnings' },
         { root: `/instructor-reports/${instructorId}`, label: 'Reports' },
-        
+
     ];
 
     useEffect(() => {
@@ -50,6 +50,9 @@ function InstructorWarnings({ logout, isAuthenticated }) {
             const data = await fetchPendingWarnings(instructorId);
             setemptyPendingWarnings(data.length === 0);
             setPendingWarnings(data);
+            const data2 = await fetchResolvedWarnings(instructorId);
+            setemptyResolvedWarnings(data2.length === 0);
+            setResolvedWarnings(data2);
             setLoading(false);
         } catch (error) {
             console.error(error);
@@ -65,9 +68,9 @@ function InstructorWarnings({ logout, isAuthenticated }) {
     //   }
 
     // Display loading indicator while waiting for data
-      if ( ( resolvedWarnings.length === 0|| pendingWarnings.length === 0) && loading) {
-        return <LoadingScreen />;
-      }
+    if ((resolvedWarnings.length === 0 || pendingWarnings.length === 0) && loading) {
+        return <LoadingScreen navigationItems={navigationItems} />;
+    }
 
     return (
         <div className="bg-gray-200 h-[100%]">
@@ -113,7 +116,7 @@ function InstructorWarnings({ logout, isAuthenticated }) {
                                     <div className="col-span-4 mt-4 text-center">
                                         <button
                                             className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md mx-auto block"
-                                            onClick={() => handleConfirmWarning(index)} 
+                                            onClick={() => handleConfirmWarning(index)}
                                         >
                                             Confirm
                                         </button>

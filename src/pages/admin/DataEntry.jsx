@@ -132,8 +132,8 @@ function ExcelDataEntry() {
                                 <option value="course">Courses</option>
                                 <option value="department">Departments</option>
                                 <option value="instructor">Instructors</option>
-                                <option value="enrollments">Enrollments</option>
-                                <option value="teachings">Teachings</option>
+                                <option value="enroll">Enrollments</option>
+                                <option value="teach">Teachings</option>
                             </select>
                         </div>
                         <button

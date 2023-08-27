@@ -3,11 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 const navigationItems = [
   { root: '/', label: 'Home' },
-  { root: '/about', label: 'About' },
-  { root: '/services', label: 'Services' },
-  { root: '/contact', label: 'Contact' },
-  // Add more navigation items as needed
-]; 
+  { root: '/student-login', label: 'Student' },
+  { root: '/instructor-login', label: 'Instructor' },
+  { root: '/admin-login', label: 'Admin' },
+];
 
 const AdminLogin = (props) => {
   const [username, setusername] = useState('');

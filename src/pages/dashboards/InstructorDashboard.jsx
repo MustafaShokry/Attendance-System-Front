@@ -89,7 +89,7 @@ function StudentDashboard({ logout, isAuthenticated }) {
 
   // Display loading indicator while waiting for data
   if (instructorData === null || courses.length === 0) {
-    return <LoadingScreen />;
+    return <LoadingScreen navigationItems={navigationItems} />;
   }
 
   return (

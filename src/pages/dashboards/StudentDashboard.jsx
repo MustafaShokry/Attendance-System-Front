@@ -9,7 +9,9 @@ import LoadingScreen from '../../components/LoadingScreen';
 import LectureDetails from '../../components/courses/LectureDetails';
 
 
-function StudentDashboard({ logout, isAuthenticated }) {
+
+
+function StudentDashboard( {logout}) {
     const { studentId } = useParams(); // Get studentId from the URL params
     const [studentData, setStudentData] = useState(null);
     const [courses, setCourses] = useState([]);
@@ -19,9 +21,10 @@ function StudentDashboard({ logout, isAuthenticated }) {
         { root: '/', label: 'Home' },
         { root: `/student-dashboard/${studentId}`, label: 'Dashboard' },
         { root: `/student-report/${studentId}`, label: 'Report Illness' },
-      ]; 
-    
+    ];
+
     useEffect(() => {
+
         const fetchStudentCourses = async () => {
             try {
                 console.log('Fetching student courses...');
@@ -44,8 +47,9 @@ function StudentDashboard({ logout, isAuthenticated }) {
             }
         };
 
-        fetchStudentData();
-        fetchStudentCourses();
+            fetchStudentData();
+            fetchStudentCourses();
+ 
     }, []);
 
 
@@ -56,6 +60,7 @@ function StudentDashboard({ logout, isAuthenticated }) {
         });
         setShowLectureDetails(true);
     };
+    
     const handleCloseDetailsClick = () => {
         setShowLectureDetails(false);
     }
@@ -64,18 +69,15 @@ function StudentDashboard({ logout, isAuthenticated }) {
         logout();
     };
 
-    if (!isAuthenticated) {
-        return <Navigate to="/" />;
-    }
 
     // Display loading indicator while waiting for data
     if (studentData === null || courses.length === 0) {
-        return <LoadingScreen />;
+        return <LoadingScreen navigationItems={navigationItems} />;
     }
     console.log(navigationItems);
     return (
         <div className="bg-gray-200 h-[100%]">
-            <Navbar navItems={navigationItems}/>
+            <Navbar navItems={navigationItems} />
             <div className="max-w-5xl mx-auto py-8">
                 <div className="bg-white rounded-lg shadow-lg p-6">
                     <h1 className="text-3xl font-semibold mb-4">Student dashboard</h1>
@@ -83,6 +85,10 @@ function StudentDashboard({ logout, isAuthenticated }) {
                         <div>
                             <p className="text-gray-700"><strong>Name:</strong></p>
                             <p className="text-gray-900">{studentData.student.student_name}</p>
+                        </div>
+                        <div>
+                            <p className="text-gray-700"><strong>Program Type:</strong></p>
+                            <p className="text-gray-900">{studentId.toString().charAt(0) === '1' ? 'Credit' : 'Mainstream'}</p>
                         </div>
                         <div>
                             <p className="text-gray-700"><strong>Email:</strong></p>

@@ -70,7 +70,7 @@ function InstructorWarnings({ logout, isAuthenticated }) {
 
     // Display loading indicator while waiting for data
     if ((resovlvedReports.length === 0 || pendingReports.length === 0) && loading) {
-        return <LoadingScreen />;
+        return <LoadingScreen navigationItems={navigationItems} />;
     }
 
     return (

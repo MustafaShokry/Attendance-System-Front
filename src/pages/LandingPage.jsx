@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 const navigationItems = [
   { root: '/', label: 'Home' },
-  { root: '/about', label: 'About' },
-  { root: '/services', label: 'Services' },
-  { root: '/contact', label: 'Contact' },
-  // Add more navigation items as needed
+  { root: '/student-login', label: 'Student' },
+  { root: '/instructor-login', label: 'Instructor' },
+  { root: '/admin-login', label: 'Admin' },
 ];
 
 function LandingPage() {
@@ -14,7 +13,7 @@ function LandingPage() {
     <div className='h-screen overflow-hidden'>
       <Navbar navItems={navigationItems}/>
       <main className="bg-gray-100 min-h-screen flex justify-center items-center">
-        <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+        <div className="bg-white p-8 rounded-lg shadow-lg text-center mt-[-250px]">
           <h1 className="text-4xl font-bold  mb-4">Welcome to the Attendance System</h1>
           <p className="text-xl text-gray-600 mb-8">Choose your role to log in:</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
